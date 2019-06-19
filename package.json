@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "the base boilerplate code to write a talk",
   "bin": {
-    "talk-writer": "./bin/talk-writer"
+    "talk-writer": "./dist/bin.js"
   },
   "repository": {
     "type": "git",
