@@ -5,11 +5,9 @@ import { Configuration } from 'webpack';
 export default {
   entry: ['core-js/stable', 'regenerator-runtime/runtime'],
   output: {
-    path: resolve(__dirname, './dist'),
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: resolve(__dirname, './dist'),
     host: '0.0.0.0'
   },
   devtool: 'source-map',
