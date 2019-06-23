@@ -18,4 +18,4 @@ const options = yargs
 
 const incomingConfig: Partial<Configuration> = require(options.config);
 
-buildTalk(incomingConfig);
+buildTalk(incomingConfig, options.config);
