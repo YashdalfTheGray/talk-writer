@@ -1,8 +1,9 @@
-import { resolve, join } from 'path';
+import { join } from 'path';
 
 import { Configuration } from 'webpack';
 
 export default {
+  mode: 'development',
   entry: ['core-js/stable', 'regenerator-runtime/runtime'],
   output: {
     filename: 'bundle.js'
