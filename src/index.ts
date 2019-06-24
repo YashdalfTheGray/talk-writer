@@ -1,13 +1,22 @@
-import * as webpack from 'webpack';
+import { promisify } from 'util';
+
+import webpack from 'webpack';
 import merge from 'webpack-merge';
+import chalk from 'chalk';
 
 import baseConfig from './baseConfig';
 
-export default function buildTalk(
-  incomingConfig: Partial<webpack.Configuration>
+export default async function buildTalk(
+  incomingConfig: Partial<webpack.Configuration>,
+  configPath: string
 ) {
-  console.log('incoming config');
-  console.log(incomingConfig);
-  console.log('merged config');
-  console.log(merge(baseConfig, incomingConfig));
+  const fullConfig = merge(baseConfig, incomingConfig);
+  console.log(`using config from ${chalk.green(configPath)}`);
+
+  const compiler = webpack(fullConfig);
+  const runAsync = promisify(compiler.run);
+  const runAsyncBound: typeof runAsync = runAsync.bind(compiler);
+  const stats = await runAsyncBound();
+
+  console.log(stats.toString());
 }
