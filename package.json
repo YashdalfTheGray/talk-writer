@@ -2,14 +2,15 @@
   "name": "talk-writer",
   "version": "1.0.0",
   "description": "the base boilerplate code to write a talk",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "talk-writer": "./dist/bin.js"
   },
   "scripts": {
     "prepare": "npm run build",
     "prebuild": "npx rimraf dist",
-    "build": "tsc",
-    "postinstall": "npm run build"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
