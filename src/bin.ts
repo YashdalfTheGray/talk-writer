@@ -14,8 +14,14 @@ const options = yargs
     demand: true,
     string: true
   })
+  .option('development', {
+    alias: 'dev',
+    describe: 'whether to run Webpack in development mode or not',
+    demand: true,
+    boolean: true
+  })
   .help().argv;
 
 const incomingConfig: Partial<Configuration> = require(options.config);
 
-buildTalk(incomingConfig, options.config);
+buildTalk(incomingConfig, options.config, options.development);
