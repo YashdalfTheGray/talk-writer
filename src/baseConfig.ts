@@ -2,6 +2,21 @@ import { join } from 'path';
 
 import { Configuration } from 'webpack';
 
+const babelOptions = {
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        targets: {
+          browsers: ['last 2 versions']
+        }
+      }
+    ],
+    '@babel/preset-react'
+  ],
+  plugins: ['react-hot-loader/babel', '@babel/plugin-proposal-class-properties']
+};
+
 export default {
   mode: 'development',
   entry: ['core-js/stable', 'regenerator-runtime/runtime'],
@@ -17,12 +32,15 @@ export default {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }]
+        use: [
+          { loader: 'babel-loader', options: babelOptions },
+          { loader: 'ts-loader' }
+        ]
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }]
+        use: [{ loader: 'babel-loader', options: babelOptions }]
       },
       {
         test: /\.md$/,
