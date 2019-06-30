@@ -66,5 +66,7 @@
     "webpack-merge": "^4.2.1",
     "yargs": "^13.2.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "react-hot-loader": "^4.11.1"
+  }
 }
