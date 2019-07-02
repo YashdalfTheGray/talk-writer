@@ -2,20 +2,7 @@ import { join } from 'path';
 
 import { Configuration } from 'webpack';
 
-const babelOptions = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          browsers: ['last 2 versions']
-        }
-      }
-    ],
-    '@babel/preset-react'
-  ],
-  plugins: ['react-hot-loader/babel', '@babel/plugin-proposal-class-properties']
-};
+import babelConfig from './babelConfig';
 
 export default {
   mode: 'development',
@@ -33,14 +20,14 @@ export default {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: [
-          { loader: 'babel-loader', options: babelOptions },
+          { loader: 'babel-loader', options: babelConfig },
           { loader: 'ts-loader' }
         ]
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader', options: babelOptions }]
+        use: [{ loader: 'babel-loader', options: babelConfig }]
       },
       {
         test: /\.md$/,
