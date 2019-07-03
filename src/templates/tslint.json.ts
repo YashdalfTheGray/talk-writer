@@ -1,0 +1,18 @@
+const tslint = {
+  defaultSeverity: 'error',
+  extends: ['tslint:recommended', 'tslint-react', 'tslint-config-prettier'],
+  jsRules: {},
+  rules: {
+    'arrow-parens': [false],
+    indent: [true, 'spaces', 2],
+    'object-literal-sort-keys': [false],
+    'one-line': [true, 'check-open-space', 'check-whitespace'],
+    'trailing-comma': [false]
+  },
+  rulesDirectory: ['tslint-plugin-prettier']
+};
+
+export default {
+  name: 'tslint.json',
+  content: JSON.stringify(tslint, null, 2)
+};
