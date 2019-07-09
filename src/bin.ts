@@ -7,7 +7,7 @@ import buildTalk from '.';
 
 yargs
   .command(
-    ['build', '$0'],
+    'build',
     'build the application assets',
     y =>
       y
@@ -17,15 +17,16 @@ yargs
           demand: true,
           type: 'string'
         })
-        .option('development', {
-          alias: 'dev',
-          describe: 'whether to run Webpack in development mode or not',
-          demand: true,
+        .option('production', {
+          alias: 'p',
+          describe: 'whether to run Webpack in production mode or not',
+          default: false,
           type: 'boolean'
-        }),
+        })
+        .demandOption(['config']),
     args => {
       const incomingConfig: Partial<Configuration> = require(args.config);
-      buildTalk(incomingConfig, args.config, args.development);
+      buildTalk(incomingConfig, args.config, args.production);
     }
   )
   .command(
@@ -40,4 +41,5 @@ yargs
       }),
     args => console.log(args)
   )
-  .help();
+  .demandCommand()
+  .help().argv;
