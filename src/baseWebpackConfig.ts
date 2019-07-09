@@ -5,7 +5,6 @@ import { Configuration } from 'webpack';
 import babelConfig from './babelConfig';
 
 export default {
-  mode: 'development',
   entry: ['core-js/stable', 'regenerator-runtime/runtime'],
   output: {
     filename: 'bundle.js'

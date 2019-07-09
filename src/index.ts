@@ -9,13 +9,11 @@ import baseWebpackConfig from './baseWebpackConfig';
 export default async function buildTalk(
   incomingConfig: Partial<webpack.Configuration>,
   configPath: string,
-  development: boolean
+  production: boolean
 ) {
-  const fullConfig = merge(
-    baseWebpackConfig,
-    incomingConfig,
-    development ? {} : { mode: 'production' }
-  );
+  const fullConfig = merge(baseWebpackConfig, incomingConfig, {
+    mode: production ? 'production' : 'development'
+  });
   console.log(`using config from ${chalk.green(configPath)}`);
 
   const compiler = webpack(fullConfig);
