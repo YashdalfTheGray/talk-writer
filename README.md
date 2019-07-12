@@ -12,13 +12,19 @@ There are a couple of modes to run this tool. They're documented below.
 
 ### Generation
 
-There are some files that we need to generate in the repository first before we can start compiling. You can generate files for either Typescript or Javascript by running the commands below.
+There are some files that we need to generate in the repository first before we can start compiling. You can generate files for either Typescript or Javascript by running `talk-writer generate`. The flags that it takes are listed below.
 
-For Typescript, run `talk-writer init --language ts` and for Javascript, run `talk-writer init --language js`. You can also abbreviate the `--language` flag as `-l`.
+#### `--language`
+
+For Typescript, run `talk-writer init --language ts --root $(pwd)` and for Javascript, run `talk-writer init --language js --root $(pwd)`. You can also abbreviate the `--language` flag as `-l`. `typescript` and `ts`, and `javascript` and `js` are equivalent and will produce the aame results.
+
+#### `--root`
+
+Passing in the `--root` flag tells us where to put the files and is required. Generally, `$(pwd)` in your project root is the best place to put them.
 
 ### Building
 
-You can use this package to build a talk or any kind of Javascript application using `talk-writer build`. This subcoomand takes a couple of flags that are of interest.
+You can use this package to build a talk or any kind of Javascript application using `talk-writer build`. This subcoomand takes a few flags that are of interest.
 
 #### `--config`
 
