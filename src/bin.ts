@@ -3,7 +3,8 @@
 import * as yargs from 'yargs';
 import { Configuration } from 'webpack';
 
-import buildTalk from '.';
+import { buildTalk, generate } from '.';
+import SupportedLanguages from './models/SupportedLanguages';
 
 yargs
   .command(
@@ -33,13 +34,31 @@ yargs
     'generate',
     'generate the minimal required boilerplate',
     y =>
-      y.option('language', {
-        alias: 'l',
-        describe: 'the language that you want to write the project in',
-        demand: true,
-        choices: ['typescript', 'ts', 'javascript', 'js']
-      }),
-    args => console.log(args)
+      y
+        .option('language', {
+          alias: 'l',
+          describe: 'the language that you want to write the project in',
+          demand: true,
+          choices: ['typescript', 'ts', 'javascript', 'js'],
+          coerce: function(arg: string) {
+            if (arg === 'ts') {
+              return 'typescript';
+            } else if (arg === 'js') {
+              return 'javascript';
+            } else {
+              return arg;
+            }
+          }
+        })
+        .option('root', {
+          alias: 'r',
+          describe: 'the root of the project to generate files in',
+          demand: true,
+          type: 'string'
+        }),
+    args => {
+      generate(args.language as SupportedLanguages, args.root);
+    }
   )
   .demandCommand()
   .help().argv;
