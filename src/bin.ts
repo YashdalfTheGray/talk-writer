@@ -60,5 +60,28 @@ yargs
       generate(args.language as SupportedLanguages, args.root);
     }
   )
+  .command(
+    'server',
+    'serve the assets out in development mode for testing',
+    y =>
+      y
+        .option('config', {
+          alias: 'c',
+          describe: 'the config file to use',
+          demand: true,
+          type: 'string'
+        })
+        .option('hot', {
+          alias: 'h',
+          describe: 'enable hot reloading - the app must support it',
+          default: false,
+          type: 'boolean'
+        })
+        .demandOption(['config']),
+    args => {
+      const incomingConfig: Partial<Configuration> = require(args.config);
+      console.log(JSON.stringify(incomingConfig, null, 2));
+    }
+  )
   .demandCommand()
   .help().argv;
