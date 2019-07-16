@@ -36,4 +36,12 @@ The default is to generate development builds through Webpack. You can use this 
 
 ### Dev server
 
-You can use the `talk-writer dev-server` subcommand to spin up a dev server with hot module reloading so that you can see your changes as you're developing your application.
+You can use the `talk-writer server` subcommand to spin up a dev server with hot module reloading so that you can see your changes as you're developing your application.
+
+#### `--config`
+
+The partial Webpack config file to use to build the application. One is already generated for you by the generation subcommand which can just be used.
+
+#### `--hot`
+
+Whether to enable hot module reloading or not. The application being built must be configured correctly for this option to work.
