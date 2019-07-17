@@ -1,5 +1,6 @@
 import { promisify } from 'util';
 import { resolve } from 'path';
+import { writeFile } from 'fs';
 
 import webpack from 'webpack';
 import merge from 'webpack-merge';
@@ -32,6 +33,8 @@ export async function buildTalk(
 }
 
 export async function generate(lang: SupportedLanguages, root: string) {
+  const writeFileAsync = promisify(writeFile);
+
   const prettierConfig = new PrettierConfig();
   const webpackConfig = new WebpackConfig();
 
@@ -40,11 +43,19 @@ export async function generate(lang: SupportedLanguages, root: string) {
     const tslintConfig = new TslintConfig();
 
     console.log(`Generating ${resolve(root, tsConfig.name)}`);
-    console.log(tsConfig.withFilesGlob(['./src/**/*.ts']).generate());
+    await writeFileAsync(
+      resolve(root, tsConfig.name),
+      tsConfig.withFilesGlob(['./src/**/*.ts']).generate(),
+      'utf-8'
+    );
     console.log('\n');
 
     console.log(`Generating ${resolve(root, tslintConfig.name)}`);
-    console.log(tslintConfig.generate());
+    await writeFileAsync(
+      resolve(root, tslintConfig.name),
+      tslintConfig.generate(),
+      'utf-8'
+    );
     console.log('\n');
   }
 
@@ -52,15 +63,27 @@ export async function generate(lang: SupportedLanguages, root: string) {
     const eslintConfig = new EslintConfig();
 
     console.log(`Generating ${resolve(root, eslintConfig.name)}`);
-    console.log(eslintConfig.generate());
+    await writeFileAsync(
+      resolve(root, eslintConfig.name),
+      eslintConfig.generate(),
+      'utf-8'
+    );
     console.log('\n');
   }
 
   console.log(`Generating ${resolve(root, prettierConfig.name)}`);
-  console.log(prettierConfig.generate());
+  await writeFileAsync(
+    resolve(root, prettierConfig.name),
+    prettierConfig.generate(),
+    'utf-8'
+  );
   console.log('\n');
 
   console.log(`Generating ${resolve(root, webpackConfig.name)}`);
-  console.log(webpackConfig.withLanguage(lang).generate());
+  await writeFileAsync(
+    resolve(root, webpackConfig.name),
+    webpackConfig.withLanguage(lang).generate(),
+    'utf-8'
+  );
   console.log('\n');
 }
