@@ -10,6 +10,7 @@ import SupportedLanguages from './models/SupportedLanguages';
 import PrettierConfig from './templates/PrettierConfig';
 import TsConfig from './templates/TsConfig';
 import TslintConfig from './templates/TslintConfig';
+import EslintConfig from './templates/EslintConfig';
 import WebpackConfig from './templates/WebpackConfig';
 
 export async function buildTalk(
@@ -32,17 +33,26 @@ export async function buildTalk(
 
 export async function generate(lang: SupportedLanguages, root: string) {
   const prettierConfig = new PrettierConfig();
-  const tsConfig = new TsConfig();
-  const tslintConfig = new TslintConfig();
   const webpackConfig = new WebpackConfig();
 
   if (lang === 'typescript') {
+    const tsConfig = new TsConfig();
+    const tslintConfig = new TslintConfig();
+
     console.log(`Generating ${resolve(root, tsConfig.name)}`);
     console.log(tsConfig.withFilesGlob(['./src/**/*.ts']).generate());
     console.log('\n');
 
     console.log(`Generating ${resolve(root, tslintConfig.name)}`);
     console.log(tslintConfig.generate());
+    console.log('\n');
+  }
+
+  if (lang === 'javascript') {
+    const eslintConfig = new EslintConfig();
+
+    console.log(`Generating ${resolve(root, eslintConfig.name)}`);
+    console.log(eslintConfig.generate());
     console.log('\n');
   }
 
