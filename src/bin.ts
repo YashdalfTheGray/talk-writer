@@ -3,7 +3,7 @@
 import * as yargs from 'yargs';
 import { Configuration } from 'webpack';
 
-import { buildTalk, generate } from '.';
+import { buildTalk, generate, runDevServer } from '.';
 import SupportedLanguages from './models/SupportedLanguages';
 
 yargs
@@ -79,8 +79,7 @@ yargs
         })
         .demandOption(['config']),
     args => {
-      const incomingConfig: Partial<Configuration> = require(args.config);
-      console.log(JSON.stringify(incomingConfig, null, 2));
+      runDevServer(args.config, args.hot);
     }
   )
   .demandCommand()
