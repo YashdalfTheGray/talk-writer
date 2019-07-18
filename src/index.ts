@@ -1,6 +1,7 @@
 import { promisify } from 'util';
 import { resolve } from 'path';
 import { writeFile } from 'fs';
+import { exec } from 'child_process';
 
 import webpack from 'webpack';
 import merge from 'webpack-merge';
@@ -86,4 +87,27 @@ export async function generate(lang: SupportedLanguages, root: string) {
     'utf-8'
   );
   console.log('\n');
+}
+
+export async function runDevServer(configPath: string, hot: boolean) {
+  try {
+    const child = exec(`for(( ; ; )); do echo ${configPath}; sleep 2; done`);
+    if (child.stdout) {
+      child.stdout.pipe(process.stdout);
+    }
+    if (child.stderr) {
+      child.stderr.pipe(process.stderr);
+    }
+
+    child.addListener('exit', (code, signal) => {
+      console.log(`Process exited with ${code} via ${signal}.`);
+    });
+
+    process.on('SIGINT', function() {
+      child.kill('SIGINT');
+    });
+  } catch (e) {
+    console.log('Something went wrong trying to spin up webpack dev server');
+    console.error(e);
+  }
 }
