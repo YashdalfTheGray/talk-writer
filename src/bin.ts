@@ -55,9 +55,15 @@ yargs
           describe: 'the root of the project to generate files in',
           demand: true,
           type: 'string'
+        })
+        .option('overwrite', {
+          alias: 'o',
+          describe: 'whether to overwrite the files if they already exist',
+          default: false,
+          type: 'boolean'
         }),
     args => {
-      generate(args.language as SupportedLanguages, args.root);
+      generate(args.language as SupportedLanguages, args.root, args.overwrite);
     }
   )
   .command(
