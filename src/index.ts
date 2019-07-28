@@ -14,6 +14,7 @@ import TsConfig from './templates/TsConfig';
 import TslintConfig from './templates/TslintConfig';
 import EslintConfig from './templates/EslintConfig';
 import WebpackConfig from './templates/WebpackConfig';
+import Homepage from './templates/Homepage';
 
 export async function buildTalk(
   incomingConfig: Partial<webpack.Configuration>,
@@ -38,6 +39,7 @@ export async function generate(lang: SupportedLanguages, root: string) {
 
   const prettierConfig = new PrettierConfig();
   const webpackConfig = new WebpackConfig();
+  const homepage = new Homepage();
 
   if (lang === 'typescript') {
     const tsConfig = new TsConfig();
@@ -49,7 +51,6 @@ export async function generate(lang: SupportedLanguages, root: string) {
       tsConfig.withFilesGlob(['./src/**/*.ts']).generate(),
       'utf-8'
     );
-    console.log('\n');
 
     console.log(`Generating ${resolve(root, tslintConfig.name)}`);
     await writeFileAsync(
@@ -57,7 +58,6 @@ export async function generate(lang: SupportedLanguages, root: string) {
       tslintConfig.generate(),
       'utf-8'
     );
-    console.log('\n');
   }
 
   if (lang === 'javascript') {
@@ -69,7 +69,6 @@ export async function generate(lang: SupportedLanguages, root: string) {
       eslintConfig.generate(),
       'utf-8'
     );
-    console.log('\n');
   }
 
   console.log(`Generating ${resolve(root, prettierConfig.name)}`);
@@ -78,7 +77,6 @@ export async function generate(lang: SupportedLanguages, root: string) {
     prettierConfig.generate(),
     'utf-8'
   );
-  console.log('\n');
 
   console.log(`Generating ${resolve(root, webpackConfig.name)}`);
   await writeFileAsync(
@@ -86,7 +84,13 @@ export async function generate(lang: SupportedLanguages, root: string) {
     webpackConfig.withLanguage(lang).generate(),
     'utf-8'
   );
-  console.log('\n');
+
+  console.log(`Generating ${resolve(root, homepage.name)}`);
+  await writeFileAsync(
+    resolve(root, homepage.name),
+    homepage.generate(),
+    'utf-8'
+  );
 }
 
 export async function runDevServer(configPath: string, hot: boolean) {
