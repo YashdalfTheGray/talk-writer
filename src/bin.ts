@@ -74,7 +74,7 @@ yargs
         .option('hot', {
           alias: 'h',
           describe: 'enable hot reloading - the app must support it',
-          default: false,
+          default: true,
           type: 'boolean'
         })
         .demandOption(['config']),
