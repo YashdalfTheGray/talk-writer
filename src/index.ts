@@ -91,7 +91,11 @@ export async function generate(lang: SupportedLanguages, root: string) {
 
 export async function runDevServer(configPath: string, hot: boolean) {
   try {
-    const child = exec(`for(( ; ; )); do echo ${configPath}; sleep 2; done`);
+    const child = exec(
+      `webpack-dev-server --config ${configPath} ${
+        hot ? '--hot' : ''
+      } --mode=development --color --progress`
+    );
     if (child.stdout) {
       child.stdout.pipe(process.stdout);
     }
