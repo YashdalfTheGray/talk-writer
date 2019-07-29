@@ -1,6 +1,6 @@
 import { promisify } from 'util';
 import { resolve } from 'path';
-import { writeFile } from 'fs';
+import { writeFile, readFile } from 'fs';
 import { exec } from 'child_process';
 
 import webpack from 'webpack';
@@ -15,6 +15,26 @@ import TslintConfig from './templates/TslintConfig';
 import EslintConfig from './templates/EslintConfig';
 import WebpackConfig from './templates/WebpackConfig';
 import Homepage from './templates/Homepage';
+
+const writeFileAsync = promisify(writeFile);
+const readFileAsync = promisify(readFile);
+
+async function conditionallyWriteFile(
+  path: string,
+  content: string,
+  overwrite: boolean
+) {
+  try {
+    await readFileAsync(path, 'utf-8');
+    if (overwrite) {
+      return writeFileAsync(path, content, 'utf-8');
+    } else {
+      return Promise.resolve();
+    }
+  } catch (e) {
+    return writeFileAsync(path, content, 'utf-8');
+  }
+}
 
 export async function buildTalk(
   incomingConfig: Partial<webpack.Configuration>,
@@ -34,9 +54,11 @@ export async function buildTalk(
   console.log(stats.toString());
 }
 
-export async function generate(lang: SupportedLanguages, root: string) {
-  const writeFileAsync = promisify(writeFile);
-
+export async function generate(
+  lang: SupportedLanguages,
+  root: string,
+  overwrite: boolean
+) {
   const prettierConfig = new PrettierConfig();
   const webpackConfig = new WebpackConfig();
   const homepage = new Homepage();
