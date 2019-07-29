@@ -1,6 +1,5 @@
 import { promisify } from 'util';
 import { resolve } from 'path';
-import { writeFile, readFile } from 'fs';
 import { exec } from 'child_process';
 
 import webpack from 'webpack';
@@ -15,26 +14,7 @@ import TslintConfig from './templates/TslintConfig';
 import EslintConfig from './templates/EslintConfig';
 import WebpackConfig from './templates/WebpackConfig';
 import Homepage from './templates/Homepage';
-
-const writeFileAsync = promisify(writeFile);
-const readFileAsync = promisify(readFile);
-
-async function conditionallyWriteFile(
-  path: string,
-  content: string,
-  overwrite: boolean
-) {
-  try {
-    await readFileAsync(path, 'utf-8');
-    if (overwrite) {
-      return writeFileAsync(path, content, 'utf-8');
-    } else {
-      return Promise.resolve();
-    }
-  } catch (e) {
-    return writeFileAsync(path, content, 'utf-8');
-  }
-}
+import { conditionallyWriteFile } from './utils';
 
 export async function buildTalk(
   incomingConfig: Partial<webpack.Configuration>,
@@ -68,17 +48,17 @@ export async function generate(
     const tslintConfig = new TslintConfig();
 
     console.log(`Generating ${resolve(root, tsConfig.name)}`);
-    await writeFileAsync(
+    await conditionallyWriteFile(
       resolve(root, tsConfig.name),
       tsConfig.withFilesGlob(['./src/**/*.ts']).generate(),
-      'utf-8'
+      overwrite
     );
 
     console.log(`Generating ${resolve(root, tslintConfig.name)}`);
-    await writeFileAsync(
+    await conditionallyWriteFile(
       resolve(root, tslintConfig.name),
       tslintConfig.generate(),
-      'utf-8'
+      overwrite
     );
   }
 
@@ -86,32 +66,32 @@ export async function generate(
     const eslintConfig = new EslintConfig();
 
     console.log(`Generating ${resolve(root, eslintConfig.name)}`);
-    await writeFileAsync(
+    await conditionallyWriteFile(
       resolve(root, eslintConfig.name),
       eslintConfig.generate(),
-      'utf-8'
+      overwrite
     );
   }
 
   console.log(`Generating ${resolve(root, prettierConfig.name)}`);
-  await writeFileAsync(
+  await conditionallyWriteFile(
     resolve(root, prettierConfig.name),
     prettierConfig.generate(),
-    'utf-8'
+    overwrite
   );
 
   console.log(`Generating ${resolve(root, webpackConfig.name)}`);
-  await writeFileAsync(
+  await conditionallyWriteFile(
     resolve(root, webpackConfig.name),
     webpackConfig.withLanguage(lang).generate(),
-    'utf-8'
+    overwrite
   );
 
   console.log(`Generating ${resolve(root, homepage.name)}`);
-  await writeFileAsync(
+  await conditionallyWriteFile(
     resolve(root, homepage.name),
     homepage.generate(),
-    'utf-8'
+    overwrite
   );
 }
 
