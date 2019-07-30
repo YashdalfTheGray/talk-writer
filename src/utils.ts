@@ -12,8 +12,10 @@ export async function conditionallyWriteFile(
   try {
     await readFileAsync(path, 'utf-8');
     if (overwrite) {
+      console.log('File already exists, overwriting.');
       return writeFileAsync(path, content, 'utf-8');
     } else {
+      console.log('File already exists, use --overwrite flag to replace.');
       return Promise.resolve();
     }
   } catch (e) {
