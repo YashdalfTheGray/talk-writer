@@ -22,6 +22,10 @@ For Typescript, run `talk-writer init --language ts --root $(pwd)` and for Javas
 
 Passing in the `--root` flag tells us where to put the files and is required. Generally, `$(pwd)` in your project root is the best place to put them.
 
+#### `--overwrite`
+
+Use this flag when the files that this package will generate already exist but you want this package to overwrite them with the defaults. You can find the default file templates in the `src/templates` directory.
+
 ### Building
 
 You can use this package to build a talk or any kind of Javascript application using `talk-writer build`. This subcoomand takes a few flags that are of interest.
