@@ -12,7 +12,18 @@ There are a couple of modes to run this tool. They're documented below.
 
 ### Generation
 
-There are some files that we need to generate in the repository first before we can start compiling. You can generate files for either Typescript or Javascript by running `talk-writer generate`. The flags that it takes are listed below.
+There are some files that we need to generate in the repository first before we can start compiling. You can generate files for either Typescript or Javascript by running `talk-writer generate`. This table shows you what it generates.
+
+| File name           | Javascript | Typescript |
+| ------------------- | ---------- | ---------- |
+| `.eslintrc.json`    | ✔️         |            |
+| `index.html`        | ✔️         | ✔️         |
+| `.prettierrc`       | ✔️         | ✔️         |
+| `tsconfig.json`     |            | ✔️         |
+| `tslint.json`       |            | ✔️         |
+| `webpack.config.js` | ✔️         | ✔️         |
+
+The flags that it takes are listed below.
 
 #### `--language`
 
