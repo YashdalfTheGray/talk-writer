@@ -45,7 +45,7 @@
     "core-js": "^3.25.5",
     "css-loader": "^5.0.0",
     "file-loader": "^6.1.1",
-    "html-loader": "^4.1.0",
+    "html-loader": "^4.2.0",
     "husky": "^8.0.2",
     "lint-staged": "^10.4.2",
     "markdown-loader": "^8.0.0",
