@@ -43,7 +43,7 @@
     "babel-loader": "^9.1.2",
     "chalk": "^5.2.0",
     "core-js": "^3.28.0",
-    "css-loader": "^5.0.0",
+    "css-loader": "^6.7.3",
     "file-loader": "^6.1.1",
     "html-loader": "^4.2.0",
     "husky": "^8.0.3",
