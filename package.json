@@ -36,7 +36,7 @@
     "@babel/core": "^7.23.0",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.22.9",
-    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-react": "^7.23.3",
     "@types/webpack": "^5.28.2",
     "@types/webpack-merge": "^5.0.0",
     "@types/yargs": "^17.0.26",
