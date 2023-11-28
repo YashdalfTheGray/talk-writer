@@ -39,7 +39,7 @@
     "@babel/preset-react": "^7.23.3",
     "@types/webpack": "^5.28.2",
     "@types/webpack-merge": "^5.0.0",
-    "@types/yargs": "^17.0.26",
+    "@types/yargs": "^17.0.32",
     "babel-loader": "^9.1.2",
     "chalk": "^5.3.0",
     "core-js": "^3.33.1",
