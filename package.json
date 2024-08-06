@@ -35,7 +35,7 @@
   "dependencies": {
     "@babel/core": "^7.23.9",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/preset-env": "^7.23.7",
+    "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7",
     "@types/webpack": "^5.28.2",
     "@types/webpack-merge": "^5.0.0",
