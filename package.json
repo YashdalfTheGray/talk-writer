@@ -55,7 +55,7 @@
     "react-dom": "^19.1.0",
     "react-hot-loader": "^4.13.1",
     "regenerator-runtime": "^0.14.1",
-    "style-loader": "^3.3.4",
+    "style-loader": "^4.0.0",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tslint": "^6.1.3",
